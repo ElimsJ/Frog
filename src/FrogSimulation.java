@@ -3,8 +3,7 @@ public class FrogSimulation
     private int goalDistance;
     private int maxHops;
     int total;
-    int ratio = 0;
-    int hopDistance;
+    double ratio;
     public FrogSimulation (int dist, int numHops)
     {
         goalDistance = dist;
@@ -12,27 +11,35 @@ public class FrogSimulation
     }
     private int hopDistance()
     {
-
-            hopDistance = (int)Math.random()*10;
-            return hopDistance;
-
+        return (int)(Math.random()*30)-1;
     }
     public boolean simulate()
     {
         for(int i = 0; i<maxHops; i++)
         {
-            total+= hopDistance;
+            hopDistance();
+            System.out.println(hopDistance());
+            total =  total + hopDistance();
         }
         if( total >= goalDistance)
         {
-            ratio++;
             return true;
         }
         else
+        {
             return false;
+        }
     }
     public double runSimulation(int num)
     {
+        for( int i = 0; i < num; i++)
+        {
+            simulate();
+            if( simulate() == true)
+            {
+                ratio++;
+            }
+        }
         return ratio/num;
     }
 }
